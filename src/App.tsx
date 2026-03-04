@@ -1,4 +1,5 @@
 import { Authenticated, Unauthenticated, useQuery } from "convex/react";
+import { useAuth } from "@convex-dev/auth/react";
 import { api } from "../convex/_generated/api";
 import { SignInForm } from "./SignInForm";
 import { SignOutButton } from "./SignOutButton";
@@ -30,22 +31,23 @@ export default function App() {
 }
 
 function Content() {
+  const { user } = useAuth(); // reactive user after login
   const loggedInUser = useQuery(api.auth.loggedInUser);
+  
   const [currentPage, setCurrentPage] = useState<
-    "home" | "menu" | "catering" | "orders" | "admin"
-  >("home");
+    "home" | "menu" | "catering" | "orders" | "admin" | null
+  >(null);
 
-  const isAdmin = useMemo(() => {
-    return loggedInUser?.email === "Abdoush2008@gmail.com";
-  }, [loggedInUser]);
+  const isAdmin = useMemo(() => user?.email === "Abdoush2008@gmail.com", [user]);
 
+  // 🔹 Update page immediately after login
   useEffect(() => {
-    if (loggedInUser && isAdmin && currentPage === "home") {
-      setCurrentPage("admin");
+    if (user) {
+      setCurrentPage(isAdmin ? "admin" : "home");
     }
-  }, [loggedInUser, isAdmin, currentPage]);
+  }, [user, isAdmin]);
 
-  if (loggedInUser === undefined) {
+  if ((loggedInUser === undefined) || currentPage === null) {
     return (
       <div className="min-h-screen flex justify-center items-center">
         <div
