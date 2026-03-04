@@ -176,7 +176,7 @@ export function MenuPage({ onBack }: MenuPageProps) {
                 </div>
               )}
               <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold" style={{ backgroundColor: '#facc15', color: '#451a03' }}>
-                ${item.basePrice}
+                EGP{item.basePrice}
               </div>
             </div>
 
@@ -256,7 +256,7 @@ export function MenuPage({ onBack }: MenuPageProps) {
                       />
                       <span style={{ color: '#facc15' }}>{custom.name}</span>
                       <span className="font-semibold" style={{ color: '#d97706' }}>
-                        {custom.price > 0 ? `+$${custom.price}` : 'Free'}
+                        {custom.price > 0 ? `+EGP${custom.price}` : 'Free'}
                       </span>
                     </label>
                   ))}

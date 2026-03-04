@@ -1,4 +1,6 @@
+
 import { Authenticated, Unauthenticated, useQuery } from "convex/react";
+import { useAuth } from "@convex-dev/auth/react";
 import { api } from "../convex/_generated/api";
 import { SignInForm } from "./SignInForm";
 import { SignOutButton } from "./SignOutButton";
@@ -10,10 +12,19 @@ import { MenuPage } from "./components/MenuPage";
 import { CateringPage } from "./components/CateringPage";
 import { OrderHistory } from "./components/OrderHistory";
 
+// ✅ Correct import paths from src/assets (relative to this file)
+import Logo from "./assets/logorm2.webp";
+import Logo2 from "./assets/logorm3.webp";
+
 export default function App() {
   return (
-    // خلفية داكنة بتدرج بني-ذهبي عميق
-    <div className="min-h-screen" style={{ background: 'linear-gradient(to bottom right, #451a03, #1d0e01, #451a03)' }}>
+    <div
+      className="min-h-screen"
+      style={{
+        background:
+          "linear-gradient(to bottom right, #451a03, #1d0e01, #451a03)",
+      }}
+    >
       <Content />
       <Toaster richColors position="top-center" />
     </div>
@@ -21,81 +32,123 @@ export default function App() {
 }
 
 function Content() {
+  const { user } = useAuth(); // reactive user after login
   const loggedInUser = useQuery(api.auth.loggedInUser);
-  const [currentPage, setCurrentPage] = useState<'home' | 'menu' | 'catering' | 'orders' | 'admin'>('home');
   
-  const isAdmin = useMemo(() => {
-    return loggedInUser?.email === "Abdoush2008@gmail.com";
-  }, [loggedInUser]);
+  const [currentPage, setCurrentPage] = useState<
+    "home" | "menu" | "catering" | "orders" | "admin" | null
+  >(null);
 
+  const isAdmin = useMemo(() => user?.email === "Abdoush2008@gmail.com", [user]);
+
+  // 🔹 Update page immediately after login
   useEffect(() => {
-    if (loggedInUser && isAdmin && currentPage === 'home') {
-      setCurrentPage('admin');
+    if (user) {
+      setCurrentPage(isAdmin ? "admin" : "home");
     }
-  }, [loggedInUser, isAdmin, currentPage]);
+  }, [user, isAdmin]);
 
-  if (loggedInUser === undefined) {
+  if ((loggedInUser === undefined) || currentPage === null) {
     return (
       <div className="min-h-screen flex justify-center items-center">
-        <div className="w-16 h-16 border-4 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#facc15', borderTopColor: 'transparent' }}></div>
+        <div
+          className="w-16 h-16 border-4 border-t-transparent rounded-full animate-spin"
+          style={{
+            borderColor: "#facc15",
+            borderTopColor: "transparent",
+          }}
+        ></div>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen">
-      {/* Header فاخر بتدرجات بنية ذهبية */}
-      <header className="relative text-white shadow-2xl overflow-hidden" style={{ background: 'linear-gradient(to right, #451a03, #1d0e01, #451a03)' }}>
-        {/* خط ذهبي متوهج في الأعلى */}
-        <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: 'linear-gradient(to right, transparent, #facc15, transparent)' }}></div>
-        
-        {/* طبقة توهج خفيفة */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(250,204,21,0.1), transparent)' }}></div>
+      <header
+        className="relative text-white shadow-2xl overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(to right, #451a03, #1d0e01, #451a03)",
+        }}
+      >
+        <div
+          className="absolute top-0 left-0 right-0 h-0.5"
+          style={{
+            background:
+              "linear-gradient(to right, transparent, #facc15, transparent)",
+          }}
+        ></div>
+
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(250,204,21,0.1), transparent)",
+          }}
+        ></div>
 
         <div className="container mx-auto px-4 py-6 relative z-10">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4">
               <div className="ornamental-border w-14 h-14 rounded-full flex items-center justify-center">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-2xl" style={{ background: 'linear-gradient(to bottom right, #facc15, #d97706)' }}>
-                  <img src="/src/assets/logorm2.webp" alt="" />
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center shadow-2xl"
+                  style={{
+                    background:
+                      "linear-gradient(to bottom right, #facc15, #d97706)",
+                  }}
+                >
+                  <img src={Logo} alt="Logo" />
                 </div>
               </div>
               <div>
-                <h1 className="text-3xl font-bold tracking-wide gradient-text">Hameed Catering</h1>
-                <p className="text-sm italic" style={{ color: '#d97706' }}>Food and Services</p>
+                <h1 className="text-3xl font-bold tracking-wide gradient-text">
+                  Hameed Catering
+                </h1>
+                <p className="text-sm italic" style={{ color: "#d97706" }}>
+                  Food and Services
+                </p>
               </div>
             </div>
-            
+
             <Authenticated>
               <div className="flex items-center space-x-4">
                 {!isAdmin && (
                   <nav className="hidden md:flex space-x-6">
-                    <button 
-                      onClick={() => setCurrentPage('home')}
+                    <button
+                      onClick={() => setCurrentPage("home")}
                       className={`px-4 py-2 rounded-lg transition-all duration-300 ${
-                        currentPage === 'home' 
-                          ? 'shadow-lg' 
-                          : 'hover:bg-opacity-50'
+                        currentPage === "home" ? "shadow-lg" : "hover:bg-opacity-50"
                       }`}
                       style={
-                        currentPage === 'home'
-                          ? { background: 'linear-gradient(to right, #facc15, #d97706)', color: '#451a03', boxShadow: '0 10px 15px -3px rgba(250,204,21,0.3)' }
-                          : { color: '#facc15', backgroundColor: 'rgba(69,26,3,0.5)' }
+                        currentPage === "home"
+                          ? {
+                              background:
+                                "linear-gradient(to right, #facc15, #d97706)",
+                              color: "#451a03",
+                              boxShadow:
+                                "0 10px 15px -3px rgba(250,204,21,0.3)",
+                            }
+                          : { color: "#facc15", backgroundColor: "rgba(69,26,3,0.5)" }
                       }
                     >
                       Home
                     </button>
-                    <button 
-                      onClick={() => setCurrentPage('orders')}
+                    <button
+                      onClick={() => setCurrentPage("orders")}
                       className={`px-4 py-2 rounded-lg transition-all duration-300 ${
-                        currentPage === 'orders' 
-                          ? 'shadow-lg' 
-                          : 'hover:bg-opacity-50'
+                        currentPage === "orders" ? "shadow-lg" : "hover:bg-opacity-50"
                       }`}
                       style={
-                        currentPage === 'orders'
-                          ? { background: 'linear-gradient(to right, #facc15, #d97706)', color: '#451a03', boxShadow: '0 10px 15px -3px rgba(250,204,21,0.3)' }
-                          : { color: '#facc15', backgroundColor: 'rgba(69,26,3,0.5)' }
+                        currentPage === "orders"
+                          ? {
+                              background:
+                                "linear-gradient(to right, #facc15, #d97706)",
+                              color: "#451a03",
+                              boxShadow:
+                                "0 10px 15px -3px rgba(250,204,21,0.3)",
+                            }
+                          : { color: "#facc15", backgroundColor: "rgba(69,26,3,0.5)" }
                       }
                     >
                       Orders
@@ -108,8 +161,13 @@ function Content() {
           </div>
         </div>
 
-        {/* خط ذهبي سفلي */}
-        <div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ background: 'linear-gradient(to right, transparent, #facc15, transparent)' }}></div>
+        <div
+          className="absolute bottom-0 left-0 right-0 h-0.5"
+          style={{
+            background:
+              "linear-gradient(to right, transparent, #facc15, transparent)",
+          }}
+        ></div>
       </header>
 
       <main className="container mx-auto px-4 py-8">
@@ -122,10 +180,10 @@ function Content() {
             <AdminDashboard />
           ) : (
             <>
-              {currentPage === 'home' && <CustomerHome onNavigate={setCurrentPage} />}
-              {currentPage === 'menu' && <MenuPage onBack={() => setCurrentPage('home')} />}
-              {currentPage === 'catering' && <CateringPage onBack={() => setCurrentPage('home')} />}
-              {currentPage === 'orders' && <OrderHistory onBack={() => setCurrentPage('home')} />}
+              {currentPage === "home" && <CustomerHome onNavigate={setCurrentPage} />}
+              {currentPage === "menu" && <MenuPage onBack={() => setCurrentPage("home")} />}
+              {currentPage === "catering" && <CateringPage onBack={() => setCurrentPage("home")} />}
+              {currentPage === "orders" && <OrderHistory onBack={() => setCurrentPage("home")} />}
             </>
           )}
         </Authenticated>
@@ -137,25 +195,44 @@ function Content() {
 function LoginPage() {
   return (
     <div className="max-w-md mx-auto">
-      <div className="rounded-2xl shadow-2xl overflow-hidden backdrop-blur-sm" style={{ backgroundColor: '#451a03', border: '1px solid rgba(250,204,21,0.3)' }}>
-        {/* رأس البطاقة */}
-        <div className="relative p-8 text-center" style={{ background: 'linear-gradient(to right, #451a03, #1d0e01, #451a03)' }}>
+      <div
+        className="rounded-2xl shadow-2xl overflow-hidden backdrop-blur-sm"
+        style={{
+          backgroundColor: "#451a03",
+          border: "1px solid rgba(250,204,21,0.3)",
+        }}
+      >
+        <div
+          className="relative p-8 text-center"
+          style={{
+            background:
+              "linear-gradient(to right, #451a03, #1d0e01, #451a03)",
+          }}
+        >
           <div className="relative z-10">
-                          <img src="./src/assets/logorm3.webp" alt="" />
-
+            <img src={Logo2} alt="Logo2" />
           </div>
-          
-          {/* خط فاصل ذهبي */}
-          <div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ background: 'linear-gradient(to right, transparent, #facc15, transparent)' }}></div>
+
+          <div
+            className="absolute bottom-0 left-0 right-0 h-0.5"
+            style={{
+              background:
+                "linear-gradient(to right, transparent, #facc15, transparent)",
+            }}
+          ></div>
         </div>
 
-        {/* محتوى البطاقة (نموذج تسجيل الدخول) */}
         <div className="p-8">
           <SignInForm />
         </div>
 
-        {/* ذيل البطاقة بتدرج ذهبي */}
-        <div className="h-2" style={{ background: 'linear-gradient(to right, rgba(250,204,21,0.5), #d97706, rgba(250,204,21,0.5))' }}></div>
+        <div
+          className="h-2"
+          style={{
+            background:
+              "linear-gradient(to right, rgba(250,204,21,0.5), #d97706, rgba(250,204,21,0.5))",
+          }}
+        ></div>
       </div>
     </div>
   );
