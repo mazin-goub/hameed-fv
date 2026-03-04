@@ -1,4 +1,3 @@
-
 import { Authenticated, Unauthenticated, useQuery } from "convex/react";
 import { useAuth } from "@convex-dev/auth/react";
 import { api } from "../convex/_generated/api";
