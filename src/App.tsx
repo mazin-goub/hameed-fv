@@ -9,6 +9,8 @@ import { AdminDashboard } from "./components/AdminDashboard";
 import { MenuPage } from "./components/MenuPage";
 import { CateringPage } from "./components/CateringPage";
 import { OrderHistory } from "./components/OrderHistory";
+import Logo from "/src/assets/logorm2.webp";
+import Logo2 from "./src/assets/logorm3.webp";
 
 export default function App() {
   return (
@@ -57,7 +59,7 @@ function Content() {
             <div className="flex items-center space-x-4">
               <div className="ornamental-border w-14 h-14 rounded-full flex items-center justify-center">
                 <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-2xl" style={{ background: 'linear-gradient(to bottom right, #facc15, #d97706)' }}>
-                  <img src="/src/assets/logorm2.webp" alt="" />
+                  <img src={Logo} alt="" />
                 </div>
               </div>
               <div>
@@ -141,7 +143,7 @@ function LoginPage() {
         {/* رأس البطاقة */}
         <div className="relative p-8 text-center" style={{ background: 'linear-gradient(to right, #451a03, #1d0e01, #451a03)' }}>
           <div className="relative z-10">
-                          <img src="./src/assets/logorm3.webp" alt="" />
+                          <img src={Logo2} alt="" />
 
           </div>
           
