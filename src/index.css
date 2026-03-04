@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-light: #1a1a1a;        /* dark background */
+  --color-dark: #f5f5f5;         /* light text */
+  --gold-primary: #FFD700;       /* brighter gold */
+  --gold-secondary: #B8860B;
+  --gold-gradient: linear-gradient(135deg, #FFD700, #DAA520, #B8860B);
+}
+
+.accent-text {
+  @apply text-gray-400;
+}
+
+body {
+  font-family:
+    "Inter Variable",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+  color: var(--color-dark);
+  background: var(--color-light);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* Responsive base font size */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Royal Vintage Styles – Dark Edition */
+.royal-border {
+  border-image: var(--gold-gradient) 1;
+}
+
+.vintage-pattern {
+  background-image: 
+    radial-gradient(circle at 25% 25%, var(--gold-primary) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, var(--gold-primary) 2px, transparent 2px);
+  background-size: 50px 50px;
+  background-position: 0 0, 25px 25px;
+  opacity: 0.7; /* softer on dark */
+}
+
+.ornamental-border {
+  position: relative;
+}
+
+.ornamental-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: var(--gold-gradient);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+/* Custom scrollbar for dark royal theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2d2d2d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--gold-primary), var(--gold-secondary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, var(--gold-secondary), var(--gold-primary));
+}
+
+/* Auth input and button styles – dark modern */
+.auth-input-field {
+  @apply w-full px-4 py-3 rounded-lg bg-transparent border-2 border-transparent focus:border-amber-500 focus:ring-2 focus:ring-amber-500/30 outline-none transition-all  hover:shadow-md;
+  color: #f0f0f0;
+}
+
+.auth-input-field::placeholder {
+  color: #a0a0a0;
+}
+
+.auth-button {
+  @apply w-full px-4 py-3 rounded-lg bg-gradient-to-r from-amber-600 to-yellow-600 text-white font-semibold hover:from-amber-500 hover:to-yellow-500 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed;
+  background-size: 200% auto;
+  transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+  background-position: right center;
+}
+
+/* Animation classes – refined glow */
+@keyframes royal-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.5); }
+}
+
+.royal-glow {
+  animation: royal-glow 3s ease-in-out infinite;
+}
+
+/* Gradient text – brighter on dark */
+.gradient-text {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Royal card hover effects */
+.royal-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.royal-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 40px -10px rgba(255, 215, 0, 0.3);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+/* Responsive container adjustments */
+.container-custom {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-custom {
+    max-width: 640px;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-custom {
+    max-width: 768px;
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    max-width: 1024px;
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-custom {
+    max-width: 1280px;
+    padding-right: 3rem;
+    padding-left: 3rem;
+  }
+}
