@@ -7,6 +7,7 @@ export function SignInForm() {
   const { signIn } = useAuthActions();
   const [flow, setFlow] = useState<"signIn" | "signUp">("signIn");
   const [submitting, setSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // 👈 new state
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,11 +17,7 @@ export function SignInForm() {
     formData.set("flow", flow);
 
     try {
-      // Wait for signIn to complete – this ensures Convex auth state updates
       await signIn("password", formData);
-
-      // Optional: small delay to let auth propagate (usually not needed, but safe)
-      // No need to navigate – the app will automatically switch to Authenticated view
       toast.success(flow === "signIn" ? "Signed in successfully!" : "Account created!");
     } catch (error: any) {
       let toastTitle = "";
@@ -55,18 +52,31 @@ export function SignInForm() {
           placeholder="Email"
           required
         />
-        <input
-          className="w-full px-4 py-3 rounded-lg border-2 outline-none transition-all"
-          style={{
-            backgroundColor: '#451a03',
-            borderColor: '#facc15',
-            color: '#fadd8c',
-          }}
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
+
+        {/* Password field with eye icon */}
+        <div className="relative">
+          <input
+            className="w-full px-4 py-3 rounded-lg border-2 outline-none transition-all pr-12" // 👈 added pr-12 for icon space
+            style={{
+              backgroundColor: '#451a03',
+              borderColor: '#facc15',
+              color: '#fadd8c',
+            }}
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <button
+            type="button"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-yellow-500 hover:text-yellow-300 focus:outline-none"
+            style={{ color: '#facc15' }} // match your theme
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? "hide" : "reveal"} {/* simple icons, replace with SVG if desired */}
+          </button>
+        </div>
+
         <button
           className="w-full px-4 py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
