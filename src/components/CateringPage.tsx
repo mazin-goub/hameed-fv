@@ -199,7 +199,7 @@ export function CateringPage({ onBack }: CateringPageProps) {
               <div key={index} className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: '#451a03' }}>
                 <div className="flex-1">
                   <span className="font-semibold" style={{ color: '#facc15' }}>{item.item}</span>
-                  <div className="text-sm" style={{ color: '#d97706' }}>$8 per serving</div>
+                  <div className="text-sm" style={{ color: '#d97706' }}>8 EGP per serving</div>
                 </div>
                 <div className="flex items-center space-x-3">
                   <button
