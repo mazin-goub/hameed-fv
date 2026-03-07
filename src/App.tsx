@@ -1,4 +1,4 @@
-import { Authenticated, Unauthenticated, useQuery, useConvexAuth } from "convex/react";
+import { useQuery, useConvexAuth } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { SignInForm } from "./SignInForm";
 import { SignOutButton } from "./SignOutButton";
@@ -45,16 +45,14 @@ function Content() {
     }
   }, [isAuthenticated, loggedInUser, isAdmin, currentPage]);
 
-  // عرض مؤشر التحميل أثناء:
-  // 1. تحميل حالة المصادقة
-  // 2. أو بعد المصادقة ولكن بيانات المستخدم لم تُحمل بعد
-  if (authLoading || (isAuthenticated && loggedInUser === undefined)) {
+  // انتظار حتى يتم تحميل بيانات المستخدم بشكل كامل
+  if (authLoading || loggedInUser === undefined) {
     return (
       <div className="min-h-screen flex justify-center items-center">
         <div
           className="w-16 h-16 border-4 border-t-transparent rounded-full animate-spin"
           style={{
-            borderColor: "#fad96e",
+            borderColor: "#facc15",
             borderTopColor: "transparent",
           }}
         ></div>
@@ -74,7 +72,7 @@ function Content() {
         <div
           className="absolute top-0 left-0 right-0 h-0.5"
           style={{
-            background: "linear-gradient(to right, transparent, #fad96e, transparent)",
+            background: "linear-gradient(to right, transparent, #facc15, transparent)",
           }}
         ></div>
 
@@ -92,7 +90,7 @@ function Content() {
                 <div
                   className="w-12 h-12 rounded-full flex items-center justify-center shadow-2xl"
                   style={{
-                    background: "linear-gradient(to bottom right, #fad96e, #d97706)",
+                    background: "linear-gradient(to bottom right, #facc15, #d97706)",
                   }}
                 >
                   <img src={Logo} alt="Logo" />
@@ -108,7 +106,7 @@ function Content() {
               </div>
             </div>
 
-            <Authenticated>
+            {isAuthenticated && (
               <div className="flex items-center space-x-4">
                 {!isAdmin && (
                   <nav className="hidden md:flex space-x-6">
@@ -120,7 +118,7 @@ function Content() {
                       style={
                         currentPage === "home"
                           ? {
-                              background: "linear-gradient(to right, #fad96e, #d97706)",
+                              background: "linear-gradient(to right, #facc15, #d97706)",
                               color: "#451a03",
                               boxShadow: "0 10px 15px -3px rgba(250,204,21,0.3)",
                             }
@@ -137,7 +135,7 @@ function Content() {
                       style={
                         currentPage === "orders"
                           ? {
-                              background: "linear-gradient(to right, #fad96e, #d97706)",
+                              background: "linear-gradient(to right, #facc15, #d97706)",
                               color: "#451a03",
                               boxShadow: "0 10px 15px -3px rgba(250,204,21,0.3)",
                             }
@@ -150,25 +148,23 @@ function Content() {
                 )}
                 <SignOutButton />
               </div>
-            </Authenticated>
+            )}
           </div>
         </div>
 
         <div
           className="absolute bottom-0 left-0 right-0 h-0.5"
           style={{
-            background: "linear-gradient(to right, transparent, #fad96e, transparent)",
+            background: "linear-gradient(to right, transparent, #facc15, transparent)",
           }}
         ></div>
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <Unauthenticated>
+        {!isAuthenticated ? (
           <LoginPage />
-        </Unauthenticated>
-
-        <Authenticated>
-          {isAdmin ? (
+        ) : (
+          isAdmin ? (
             <AdminDashboard />
           ) : (
             <>
@@ -177,8 +173,8 @@ function Content() {
               {currentPage === "catering" && <CateringPage onBack={() => setCurrentPage("home")} />}
               {currentPage === "orders" && <OrderHistory onBack={() => setCurrentPage("home")} />}
             </>
-          )}
-        </Authenticated>
+          )
+        )}
       </main>
     </div>
   );
@@ -207,7 +203,7 @@ function LoginPage() {
           <div
             className="absolute bottom-0 left-0 right-0 h-0.5"
             style={{
-              background: "linear-gradient(to right, transparent, #fad96e, transparent)",
+              background: "linear-gradient(to right, transparent, #facc15, transparent)",
             }}
           ></div>
         </div>

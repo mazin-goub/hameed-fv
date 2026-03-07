@@ -300,7 +300,7 @@ export function AdminDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-2xl font-bold" style={{ color: '#fad96e' }}>
-                    LE{orders.reduce((total, order) => total + order.totalAmount, 0).toFixed(2)}
+                    {orders.reduce((total, order) => total + order.totalAmount, 0).toFixed(2)}LE
                   </div>
                   <div style={{ color: '#d97706' }}>Total Revenue</div>
                 </div>
@@ -358,7 +358,7 @@ export function AdminDashboard() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-2xl font-bold" style={{ color: '#fad96e' }}>LE{order.totalAmount.toFixed(2)}</div>
+                        <div className="text-2xl font-bold" style={{ color: '#fad96e' }}>{order.totalAmount.toFixed(2)}LE</div>
                       </div>
                     </div>
 
@@ -381,7 +381,7 @@ export function AdminDashboard() {
                             {order.items.map((item, index) => (
                               <div key={index} className="flex justify-between">
                                 <span>{item.name} x{item.quantity}</span>
-                                <span style={{ color: '#fad96e' }}>LE{item.price.toFixed(2)}</span>
+                                <span style={{ color: '#fad96e' }}>{item.price.toFixed(2)}LE</span>
                               </div>
                             ))}
                           </div>
