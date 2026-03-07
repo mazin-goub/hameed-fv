@@ -79,7 +79,7 @@ export function OrderHistory({ onBack }: OrderHistoryProps) {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-bold" style={{ color: '#fad96e' }}>${order.totalAmount.toFixed(2)}</div>
+                    <div className="text-2xl font-bold" style={{ color: '#fad96e' }}>LE{order.totalAmount.toFixed(2)}</div>
                   </div>
                 </div>
 
@@ -100,7 +100,7 @@ export function OrderHistory({ onBack }: OrderHistoryProps) {
                                 </div>
                               )}
                             </div>
-                            <div className="font-semibold" style={{ color: '#fad96e' }}>${item.price.toFixed(2)}</div>
+                            <div className="font-semibold" style={{ color: '#fad96e' }}>LE{item.price.toFixed(2)}</div>
                           </div>
                         ))}
                       </div>

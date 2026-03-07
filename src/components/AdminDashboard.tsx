@@ -300,7 +300,7 @@ export function AdminDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-2xl font-bold" style={{ color: '#fad96e' }}>
-                    ${orders.reduce((total, order) => total + order.totalAmount, 0).toFixed(2)}
+                    LE{orders.reduce((total, order) => total + order.totalAmount, 0).toFixed(2)}
                   </div>
                   <div style={{ color: '#d97706' }}>Total Revenue</div>
                 </div>
@@ -358,7 +358,7 @@ export function AdminDashboard() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-2xl font-bold" style={{ color: '#fad96e' }}>${order.totalAmount.toFixed(2)}</div>
+                        <div className="text-2xl font-bold" style={{ color: '#fad96e' }}>LE{order.totalAmount.toFixed(2)}</div>
                       </div>
                     </div>
 
@@ -381,7 +381,7 @@ export function AdminDashboard() {
                             {order.items.map((item, index) => (
                               <div key={index} className="flex justify-between">
                                 <span>{item.name} x{item.quantity}</span>
-                                <span style={{ color: '#fad96e' }}>${item.price.toFixed(2)}</span>
+                                <span style={{ color: '#fad96e' }}>LE{item.price.toFixed(2)}</span>
                               </div>
                             ))}
                           </div>
@@ -486,7 +486,7 @@ export function AdminDashboard() {
                     </div>
                   )}
                   <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold" style={{ backgroundColor: '#fad96e', color: '#451a03' }}>
-                    ${item.basePrice}
+                    LE{item.basePrice}
                   </div>
                   <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-sm font-semibold`} style={item.available ? { backgroundColor: '#fad96e', color: '#451a03' } : { backgroundColor: '#451a03', color: '#fad96e', border: `1px solid #fad96e` }}>
                     {item.available ? 'Available' : 'Unavailable'}

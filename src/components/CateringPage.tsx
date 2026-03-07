@@ -218,7 +218,7 @@ export function CateringPage({ onBack }: CateringPageProps) {
               <div key={item.itemId} className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: '#1d0e01' }}>
                 <div className="flex-1">
                   <span className="font-semibold" style={{ color: '#fad96e' }}>{item.name}</span>
-                  <div className="text-sm" style={{ color: '#d97706' }}>{item.price} EGP per serving</div>
+                  <div className="text-sm" style={{ color: '#d97706' }}>{item.price} LE per serving</div>
                 </div>
                 <div className="flex items-center space-x-3">
                   <button
@@ -247,16 +247,16 @@ export function CateringPage({ onBack }: CateringPageProps) {
             <div className="space-y-2" style={{ color: '#d97706' }}>
               <div className="flex justify-between">
                 <span>Base Service ({formData.guestCount || 0} guests)</span>
-                <span style={{ color: '#fad96e' }}>{((parseInt(formData.guestCount) || 0) * 15).toFixed(2)} EGP</span>
+                <span style={{ color: '#fad96e' }}>{((parseInt(formData.guestCount) || 0) * 15).toFixed(2)} LE</span>
               </div>
               <div className="flex justify-between">
                 <span>Additional Items</span>
-                <span style={{ color: '#fad96e' }}>{(cateringItems.reduce((total, item) => total + (item.quantity * item.price), 0)).toFixed(2)} EGP</span>
+                <span style={{ color: '#fad96e' }}>{(cateringItems.reduce((total, item) => total + (item.quantity * item.price), 0)).toFixed(2)} LE</span>
               </div>
               <div className="border-t pt-2 mt-2" style={{ borderColor: '#fad96e' }}>
                 <div className="flex justify-between font-bold text-lg">
                   <span style={{ color: '#fad96e' }}>Total Estimate</span>
-                  <span style={{ color: '#fad96e' }}>{calculateEstimate().toFixed(2)} EGP</span>
+                  <span style={{ color: '#fad96e' }}>{calculateEstimate().toFixed(2)} LE</span>
                 </div>
               </div>
             </div>

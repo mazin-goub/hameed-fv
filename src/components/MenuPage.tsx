@@ -182,7 +182,7 @@ export function MenuPage({ onBack }: MenuPageProps) {
                 </div>
               )}
               <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold" style={{ backgroundColor: '#fad96e', color: '#451a03' }}>
-                {item.basePrice}<small>EGP</small>
+                {item.basePrice}<small>LE</small>
               </div>
             </div>
 
@@ -262,7 +262,7 @@ export function MenuPage({ onBack }: MenuPageProps) {
                       />
                       <span style={{ color: '#fad96e' }}>{custom.name}</span>
                       <span className="font-semibold" style={{ color: '#d97706' }}>
-                        {custom.price > 0 ? `+${custom.price} EGP` : 'Free'}
+                        {custom.price > 0 ? `+${custom.price} LE` : 'Free'}
                       </span>
                     </label>
                   ))}
@@ -277,7 +277,7 @@ export function MenuPage({ onBack }: MenuPageProps) {
                     {((selectedItem.basePrice + selectedCustomizations.reduce((total, customization) => {
                       const custom = selectedItem.customizations.find((c: any) => c.name === customization);
                       return total + (custom?.price || 0);
-                    }, 0)) * quantity).toFixed(2)} EGP
+                    }, 0)) * quantity).toFixed(2)} LE
                   </span>
                 </div>
               </div>
@@ -329,7 +329,7 @@ export function MenuPage({ onBack }: MenuPageProps) {
                           )}
                         </div>
                         <div className="flex items-center space-x-2">
-                          <span className="font-semibold" style={{ color: '#fad96e' }}>{item.price.toFixed(2)} EGP</span>
+                          <span className="font-semibold" style={{ color: '#fad96e' }}>{item.price.toFixed(2)} LE</span>
                           <button
                             onClick={() => removeFromCart(item.id)}
                             style={{ color: '#d97706' }}
@@ -384,7 +384,7 @@ export function MenuPage({ onBack }: MenuPageProps) {
               <div className="mb-6 p-4 rounded-lg" style={{ backgroundColor: '#1d0e01' }}>
                 <div className="flex justify-between items-center">
                   <span className="text-xl font-semibold" style={{ color: '#fad96e' }}>Total:</span>
-                  <span className="text-2xl font-bold" style={{ color: '#fad96e' }}>{getTotalAmount().toFixed(2)} EGP</span>
+                  <span className="text-2xl font-bold" style={{ color: '#fad96e' }}>{getTotalAmount().toFixed(2)} LE</span>
                 </div>
               </div>
 
