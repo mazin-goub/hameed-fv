@@ -364,7 +364,7 @@ export function MenuPage({ onBack }: MenuPageProps) {
                 />
                 <input
                   type="date"
-                  placeholder="Event Date"
+                  placeholder="Order Date"
                   value={eventDate}
                   onChange={(e) => setEventDate(e.target.value)}
                   className="w-full px-4 py-3 border-2 rounded-lg outline-none transition-all"
@@ -372,7 +372,7 @@ export function MenuPage({ onBack }: MenuPageProps) {
                 />
                 <input
                   type="text"
-                  placeholder="Event Location"
+                  placeholder="Order Location"
                   value={eventLocation}
                   onChange={(e) => setEventLocation(e.target.value)}
                   className="w-full px-4 py-3 border-2 rounded-lg outline-none transition-all"
