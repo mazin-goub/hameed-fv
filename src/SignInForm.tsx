@@ -44,7 +44,7 @@ export function SignInForm() {
           className="w-full px-4 py-3 rounded-lg border-2 outline-none transition-all"
           style={{
             backgroundColor: '#451a03',
-            borderColor: '#facc15',
+            borderColor: '#fad96e',
             color: '#fadd8c',
           }}
           type="email"
@@ -59,7 +59,7 @@ export function SignInForm() {
             className="w-full px-4 py-3 rounded-lg border-2 outline-none transition-all pr-12" // 👈 added pr-12 for icon space
             style={{
               backgroundColor: '#451a03',
-              borderColor: '#facc15',
+              borderColor: '#fad96e',
               color: '#fadd8c',
             }}
             type={showPassword ? "text" : "password"}
@@ -70,7 +70,7 @@ export function SignInForm() {
           <button
             type="button"
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-yellow-500 hover:text-yellow-300 focus:outline-none"
-            style={{ color: '#facc15' }} // match your theme
+            style={{ color: '#fad96e' }} // match your theme
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? "hide" : "reveal"} {/* simple icons, replace with SVG if desired */}
@@ -80,7 +80,7 @@ export function SignInForm() {
         <button
           className="w-full px-4 py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
-            background: 'linear-gradient(to right, #facc15, #d97706)',
+            background: 'linear-gradient(to right, #fad96e, #d97706)',
             color: '#451a03',
           }}
           type="submit"
@@ -107,15 +107,15 @@ export function SignInForm() {
       </form>
 
       <div className="flex items-center justify-center my-3">
-        <hr className="my-4 grow" style={{ borderColor: '#facc15' }} />
+        <hr className="my-4 grow" style={{ borderColor: '#fad96e' }} />
         <span className="mx-4" style={{ color: '#fadd8c' }}>or</span>
-        <hr className="my-4 grow" style={{ borderColor: '#facc15' }} />
+        <hr className="my-4 grow" style={{ borderColor: '#fad96e' }} />
       </div>
 
       <button
         className="w-full px-4 py-3 rounded-lg font-semibold transition-all"
         style={{
-          background: 'linear-gradient(to right, #facc15, #d97706)',
+          background: 'linear-gradient(to right, #fad96e, #d97706)',
           color: '#451a03',
         }}
         onClick={async () => {

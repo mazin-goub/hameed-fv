@@ -54,7 +54,7 @@ function Content() {
         <div
           className="w-16 h-16 border-4 border-t-transparent rounded-full animate-spin"
           style={{
-            borderColor: "#facc15",
+            borderColor: "#fad96e",
             borderTopColor: "transparent",
           }}
         ></div>
@@ -74,7 +74,7 @@ function Content() {
         <div
           className="absolute top-0 left-0 right-0 h-0.5"
           style={{
-            background: "linear-gradient(to right, transparent, #facc15, transparent)",
+            background: "linear-gradient(to right, transparent, #fad96e, transparent)",
           }}
         ></div>
 
@@ -92,7 +92,7 @@ function Content() {
                 <div
                   className="w-12 h-12 rounded-full flex items-center justify-center shadow-2xl"
                   style={{
-                    background: "linear-gradient(to bottom right, #facc15, #d97706)",
+                    background: "linear-gradient(to bottom right, #fad96e, #d97706)",
                   }}
                 >
                   <img src={Logo} alt="Logo" />
@@ -120,7 +120,7 @@ function Content() {
                       style={
                         currentPage === "home"
                           ? {
-                              background: "linear-gradient(to right, #facc15, #d97706)",
+                              background: "linear-gradient(to right, #fad96e, #d97706)",
                               color: "#451a03",
                               boxShadow: "0 10px 15px -3px rgba(250,204,21,0.3)",
                             }
@@ -137,7 +137,7 @@ function Content() {
                       style={
                         currentPage === "orders"
                           ? {
-                              background: "linear-gradient(to right, #facc15, #d97706)",
+                              background: "linear-gradient(to right, #fad96e, #d97706)",
                               color: "#451a03",
                               boxShadow: "0 10px 15px -3px rgba(250,204,21,0.3)",
                             }
@@ -157,7 +157,7 @@ function Content() {
         <div
           className="absolute bottom-0 left-0 right-0 h-0.5"
           style={{
-            background: "linear-gradient(to right, transparent, #facc15, transparent)",
+            background: "linear-gradient(to right, transparent, #fad96e, transparent)",
           }}
         ></div>
       </header>
@@ -207,7 +207,7 @@ function LoginPage() {
           <div
             className="absolute bottom-0 left-0 right-0 h-0.5"
             style={{
-              background: "linear-gradient(to right, transparent, #facc15, transparent)",
+              background: "linear-gradient(to right, transparent, #fad96e, transparent)",
             }}
           ></div>
         </div>

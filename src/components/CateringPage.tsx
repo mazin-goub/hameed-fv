@@ -104,26 +104,26 @@ export function CateringPage({ onBack }: CateringPageProps) {
   if (!menuItems) {
     return (
       <div className="flex justify-center items-center min-h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-t-transparent" style={{ borderColor: '#facc15', borderTopColor: 'transparent' }}></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-t-transparent" style={{ borderColor: '#fad96e', borderTopColor: 'transparent' }}></div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto" style={{ color: '#facc15' }}>
+    <div className="max-w-4xl mx-auto" style={{ color: '#fad96e' }}>
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <button
           onClick={onBack}
           className="flex items-center space-x-2 transition-colors"
-          style={{ color: '#facc15' }}
+          style={{ color: '#fad96e' }}
         >
           <span>←</span>
           <span>Back Home</span>
         </button>
         
         <div className="text-center">
-          <h1 className="text-4xl font-bold" style={{ color: '#facc15' }}>Catering</h1>
+          <h1 className="text-4xl font-bold" style={{ color: '#fad96e' }}>Catering</h1>
           <p style={{ color: '#d97706' }}>Premium Event Services</p>
         </div>
 
@@ -132,77 +132,77 @@ export function CateringPage({ onBack }: CateringPageProps) {
 
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Event Details Form */}
-        <div className="rounded-2xl shadow-xl p-8" style={{ backgroundColor: '#451a03', border: `1px solid #facc15` }}>
-          <h2 className="text-2xl font-bold mb-6" style={{ color: '#facc15' }}>Event Details</h2>
+        <div className="rounded-2xl shadow-xl p-8" style={{ backgroundColor: '#451a03', border: `1px solid #fad96e` }}>
+          <h2 className="text-2xl font-bold mb-6" style={{ color: '#fad96e' }}>Event Details</h2>
           
           <div className="space-y-6">
             <div>
-              <label className="block font-semibold mb-2" style={{ color: '#facc15' }}>Contact Name *</label>
+              <label className="block font-semibold mb-2" style={{ color: '#fad96e' }}>Contact Name *</label>
               <input
                 type="text"
                 value={formData.customerName}
                 onChange={(e) => handleInputChange('customerName', e.target.value)}
                 className="w-full px-4 py-3 border-2 rounded-lg outline-none transition-all"
-                style={{ backgroundColor: '#451a03', borderColor: '#facc15', color: '#facc15' }}
+                style={{ backgroundColor: '#451a03', borderColor: '#fad96e', color: '#fad96e' }}
                 placeholder="Your full name"
               />
             </div>
 
             <div>
-              <label className="block font-semibold mb-2" style={{ color: '#facc15' }}>Phone Number *</label>
+              <label className="block font-semibold mb-2" style={{ color: '#fad96e' }}>Phone Number *</label>
               <input
                 type="tel"
                 value={formData.customerPhone}
                 onChange={(e) => handleInputChange('customerPhone', e.target.value)}
                 className="w-full px-4 py-3 border-2 rounded-lg outline-none transition-all"
-                style={{ backgroundColor: '#451a03', borderColor: '#facc15', color: '#facc15' }}
+                style={{ backgroundColor: '#451a03', borderColor: '#fad96e', color: '#fad96e' }}
                 placeholder="Your phone number"
               />
             </div>
 
             <div>
-              <label className="block font-semibold mb-2" style={{ color: '#facc15' }}>Event Date *</label>
+              <label className="block font-semibold mb-2" style={{ color: '#fad96e' }}>Event Date *</label>
               <input
                 type="date"
                 value={formData.eventDate}
                 onChange={(e) => handleInputChange('eventDate', e.target.value)}
                 className="w-full px-4 py-3 border-2 rounded-lg outline-none transition-all"
-                style={{ backgroundColor: '#451a03', borderColor: '#facc15', color: '#facc15' }}
+                style={{ backgroundColor: '#451a03', borderColor: '#fad96e', color: '#fad96e' }}
               />
             </div>
 
             <div>
-              <label className="block font-semibold mb-2" style={{ color: '#facc15' }}>Event Location *</label>
+              <label className="block font-semibold mb-2" style={{ color: '#fad96e' }}>Event Location *</label>
               <input
                 type="text"
                 value={formData.eventLocation}
                 onChange={(e) => handleInputChange('eventLocation', e.target.value)}
                 className="w-full px-4 py-3 border-2 rounded-lg outline-none transition-all"
-                style={{ backgroundColor: '#451a03', borderColor: '#facc15', color: '#facc15' }}
+                style={{ backgroundColor: '#451a03', borderColor: '#fad96e', color: '#fad96e' }}
                 placeholder="Event venue address"
               />
             </div>
 
             <div>
-              <label className="block font-semibold mb-2" style={{ color: '#facc15' }}>Number of Guests *</label>
+              <label className="block font-semibold mb-2" style={{ color: '#fad96e' }}>Number of Guests *</label>
               <input
                 type="number"
                 value={formData.guestCount}
                 onChange={(e) => handleInputChange('guestCount', e.target.value)}
                 className="w-full px-4 py-3 border-2 rounded-lg outline-none transition-all"
-                style={{ backgroundColor: '#451a03', borderColor: '#facc15', color: '#facc15' }}
+                style={{ backgroundColor: '#451a03', borderColor: '#fad96e', color: '#fad96e' }}
                 placeholder="Expected number of guests"
                 min="1"
               />
             </div>
 
             <div>
-              <label className="block font-semibold mb-2" style={{ color: '#facc15' }}>Special Notes</label>
+              <label className="block font-semibold mb-2" style={{ color: '#fad96e' }}>Special Notes</label>
               <textarea
                 value={formData.notes}
                 onChange={(e) => handleInputChange('notes', e.target.value)}
                 className="w-full px-4 py-3 border-2 rounded-lg outline-none h-24 resize-none"
-                style={{ backgroundColor: '#451a03', borderColor: '#facc15', color: '#facc15' }}
+                style={{ backgroundColor: '#451a03', borderColor: '#fad96e', color: '#fad96e' }}
                 placeholder="Any special requirements or dietary restrictions..."
               />
             </div>
@@ -210,29 +210,29 @@ export function CateringPage({ onBack }: CateringPageProps) {
         </div>
 
         {/* Menu Selection */}
-        <div className="rounded-2xl shadow-xl p-8" style={{ backgroundColor: '#451a03', border: `1px solid #facc15` }}>
-          <h2 className="text-2xl font-bold mb-6" style={{ color: '#facc15' }}>Menu Selection</h2>
+        <div className="rounded-2xl shadow-xl p-8" style={{ backgroundColor: '#451a03', border: `1px solid #fad96e` }}>
+          <h2 className="text-2xl font-bold mb-6" style={{ color: '#fad96e' }}>Menu Selection</h2>
           
           <div className="space-y-4 mb-8">
             {cateringItems.map((item, index) => (
               <div key={item.itemId} className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: '#1d0e01' }}>
                 <div className="flex-1">
-                  <span className="font-semibold" style={{ color: '#facc15' }}>{item.name}</span>
+                  <span className="font-semibold" style={{ color: '#fad96e' }}>{item.name}</span>
                   <div className="text-sm" style={{ color: '#d97706' }}>{item.price} EGP per serving</div>
                 </div>
                 <div className="flex items-center space-x-3">
                   <button
                     onClick={() => handleItemQuantityChange(index, item.quantity - 1)}
                     className="w-8 h-8 rounded-full flex items-center justify-center font-bold transition-colors"
-                    style={{ backgroundColor: '#451a03', color: '#facc15', border: `1px solid #facc15` }}
+                    style={{ backgroundColor: '#451a03', color: '#fad96e', border: `1px solid #fad96e` }}
                   >
                     -
                   </button>
-                  <span className="w-12 text-center font-semibold" style={{ color: '#facc15' }}>{item.quantity}</span>
+                  <span className="w-12 text-center font-semibold" style={{ color: '#fad96e' }}>{item.quantity}</span>
                   <button
                     onClick={() => handleItemQuantityChange(index, item.quantity + 1)}
                     className="w-8 h-8 rounded-full flex items-center justify-center font-bold transition-colors"
-                    style={{ backgroundColor: '#451a03', color: '#facc15', border: `1px solid #facc15` }}
+                    style={{ backgroundColor: '#451a03', color: '#fad96e', border: `1px solid #fad96e` }}
                   >
                     +
                   </button>
@@ -243,20 +243,20 @@ export function CateringPage({ onBack }: CateringPageProps) {
 
           {/* Price Estimate */}
           <div className="p-6 rounded-lg mb-6" style={{ backgroundColor: '#1d0e01' }}>
-            <h3 className="text-xl font-bold mb-4" style={{ color: '#facc15' }}>Price Estimate</h3>
+            <h3 className="text-xl font-bold mb-4" style={{ color: '#fad96e' }}>Price Estimate</h3>
             <div className="space-y-2" style={{ color: '#d97706' }}>
               <div className="flex justify-between">
                 <span>Base Service ({formData.guestCount || 0} guests)</span>
-                <span style={{ color: '#facc15' }}>{((parseInt(formData.guestCount) || 0) * 15).toFixed(2)} EGP</span>
+                <span style={{ color: '#fad96e' }}>{((parseInt(formData.guestCount) || 0) * 15).toFixed(2)} EGP</span>
               </div>
               <div className="flex justify-between">
                 <span>Additional Items</span>
-                <span style={{ color: '#facc15' }}>{(cateringItems.reduce((total, item) => total + (item.quantity * item.price), 0)).toFixed(2)} EGP</span>
+                <span style={{ color: '#fad96e' }}>{(cateringItems.reduce((total, item) => total + (item.quantity * item.price), 0)).toFixed(2)} EGP</span>
               </div>
-              <div className="border-t pt-2 mt-2" style={{ borderColor: '#facc15' }}>
+              <div className="border-t pt-2 mt-2" style={{ borderColor: '#fad96e' }}>
                 <div className="flex justify-between font-bold text-lg">
-                  <span style={{ color: '#facc15' }}>Total Estimate</span>
-                  <span style={{ color: '#facc15' }}>{calculateEstimate().toFixed(2)} EGP</span>
+                  <span style={{ color: '#fad96e' }}>Total Estimate</span>
+                  <span style={{ color: '#fad96e' }}>{calculateEstimate().toFixed(2)} EGP</span>
                 </div>
               </div>
             </div>
@@ -268,7 +268,7 @@ export function CateringPage({ onBack }: CateringPageProps) {
           <button
             onClick={handleSubmit}
             className="w-full py-4 rounded-lg font-semibold transition-all shadow-lg text-lg"
-            style={{ background: 'linear-gradient(to right, #facc15, #d97706)', color: '#451a03' }}
+            style={{ background: 'linear-gradient(to right, #fad96e, #d97706)', color: '#451a03' }}
           >
             Submit Catering Request
           </button>
@@ -276,30 +276,30 @@ export function CateringPage({ onBack }: CateringPageProps) {
       </div>
 
       {/* Features Section */}
-      <div className="mt-16 rounded-2xl shadow-xl p-8" style={{ backgroundColor: '#451a03', border: `1px solid #facc15` }}>
-        <h2 className="text-3xl font-bold text-center mb-8" style={{ color: '#facc15' }}>Our Catering Services Include</h2>
+      <div className="mt-16 rounded-2xl shadow-xl p-8" style={{ backgroundColor: '#451a03', border: `1px solid #fad96e` }}>
+        <h2 className="text-3xl font-bold text-center mb-8" style={{ color: '#fad96e' }}>Our Catering Services Include</h2>
         <div className="grid md:grid-cols-3 gap-8">
           <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(to bottom right, #facc15, #d97706)' }}>
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(to bottom right, #fad96e, #d97706)' }}>
               <span className="text-2xl" style={{ color: '#451a03' }}>🍽️</span>
             </div>
-            <h3 className="text-xl font-semibold mb-2" style={{ color: '#facc15' }}>Full Service Setup</h3>
+            <h3 className="text-xl font-semibold mb-2" style={{ color: '#fad96e' }}>Full Service Setup</h3>
             <p style={{ color: '#d97706' }}>Complete table setup, serving equipment, and professional presentation</p>
           </div>
           
           <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(to bottom right, #facc15, #d97706)' }}>
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(to bottom right, #fad96e, #d97706)' }}>
               <span className="text-2xl" style={{ color: '#451a03' }}>👨‍🍳</span>
             </div>
-            <h3 className="text-xl font-semibold mb-2" style={{ color: '#facc15' }}>Professional Staff</h3>
+            <h3 className="text-xl font-semibold mb-2" style={{ color: '#fad96e' }}>Professional Staff</h3>
             <p style={{ color: '#d97706' }}>Experienced catering staff to ensure smooth service throughout your event</p>
           </div>
           
           <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(to bottom right, #facc15, #d97706)' }}>
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(to bottom right, #fad96e, #d97706)' }}>
               <span className="text-2xl" style={{ color: '#451a03' }}>🎯</span>
             </div>
-            <h3 className="text-xl font-semibold mb-2" style={{ color: '#facc15' }}>Custom Menus</h3>
+            <h3 className="text-xl font-semibold mb-2" style={{ color: '#fad96e' }}>Custom Menus</h3>
             <p style={{ color: '#d97706' }}>Tailored menu options to match your event theme and dietary requirements</p>
           </div>
         </div>

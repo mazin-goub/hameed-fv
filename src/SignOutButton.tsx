@@ -14,7 +14,7 @@ export function SignOutButton() {
     <button
       className="px-4 py-2 rounded-lg font-semibold transition-all shadow-lg"
       style={{
-        background: 'linear-gradient(to right, #facc15, #d97706)',
+        background: 'linear-gradient(to right, #fad96e, #d97706)',
         color: '#451a03',
       }}
       onClick={() => void signOut()}
