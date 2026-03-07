@@ -77,10 +77,8 @@ export function CateringPage({ onBack }: CateringPageProps) {
         eventLocation: formData.eventLocation,
         guestCount: parseInt(formData.guestCount),
         cateringItems: selectedItems.map(item => ({
-          itemId: item.itemId,
-          name: item.name,
+          item: item.name,   // فقط الاسم كما يتوقعه الـ mutation
           quantity: item.quantity,
-          price: item.price,
         })),
         totalAmount: calculateEstimate(),
         notes: formData.notes,
@@ -249,16 +247,16 @@ export function CateringPage({ onBack }: CateringPageProps) {
             <div className="space-y-2" style={{ color: '#d97706' }}>
               <div className="flex justify-between">
                 <span>Base Service ({formData.guestCount || 0} guests)</span>
-                <span style={{ color: '#facc15' }}>${((parseInt(formData.guestCount) || 0) * 15).toFixed(2)}</span>
+                <span style={{ color: '#facc15' }}>{((parseInt(formData.guestCount) || 0) * 15).toFixed(2)} EGP</span>
               </div>
               <div className="flex justify-between">
                 <span>Additional Items</span>
-                <span style={{ color: '#facc15' }}>${(cateringItems.reduce((total, item) => total + (item.quantity * item.price), 0)).toFixed(2)}</span>
+                <span style={{ color: '#facc15' }}>{(cateringItems.reduce((total, item) => total + (item.quantity * item.price), 0)).toFixed(2)} EGP</span>
               </div>
               <div className="border-t pt-2 mt-2" style={{ borderColor: '#facc15' }}>
                 <div className="flex justify-between font-bold text-lg">
                   <span style={{ color: '#facc15' }}>Total Estimate</span>
-                  <span style={{ color: '#facc15' }}>${calculateEstimate().toFixed(2)}</span>
+                  <span style={{ color: '#facc15' }}>{calculateEstimate().toFixed(2)} EGP</span>
                 </div>
               </div>
             </div>
