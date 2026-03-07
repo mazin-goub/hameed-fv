@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 interface CateringPageProps {
@@ -10,7 +10,8 @@ interface CateringPageProps {
 export function CateringPage({ onBack }: CateringPageProps) {
   const createOrder = useMutation(api.orders.createOrder);
   const loggedInUser = useQuery(api.auth.loggedInUser);
-  
+  const menuItems = useQuery(api.menu.getMenuItems); // جلب عناصر القائمة
+
   const [formData, setFormData] = useState({
     customerName: "",
     customerPhone: "",
@@ -20,15 +21,21 @@ export function CateringPage({ onBack }: CateringPageProps) {
     notes: "",
   });
 
-  const [cateringItems, setCateringItems] = useState([
-    { item: "Burgers", quantity: 0 },
-    { item: "Liver Sandwiches", quantity: 0 },
-    { item: "Classic Sausage ", quantity: 0 },
-    { item: "Kofta Delights", quantity: 0 },
-    { item: "Premium Appetizers", quantity: 0 },
-    { item: "Desserts", quantity: 0 },
-    { item: "Beverages Package", quantity: 0 },
-  ]);
+  // حالة لتخزين الكميات لكل عنصر من القائمة
+  const [cateringItems, setCateringItems] = useState<Array<{ itemId: string; name: string; price: number; quantity: number }>>([]);
+
+  // عند تحميل menuItems، نقوم ببناء cateringItems الأولي
+  useEffect(() => {
+    if (menuItems) {
+      const initialItems = menuItems.map((item: any) => ({
+        itemId: item._id,
+        name: item.name,
+        price: item.basePrice,
+        quantity: 0,
+      }));
+      setCateringItems(initialItems);
+    }
+  }, [menuItems]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -43,10 +50,10 @@ export function CateringPage({ onBack }: CateringPageProps) {
   };
 
   const calculateEstimate = () => {
-    const basePrice = 15; // Base price per person
+    const basePricePerGuest = 15; // يمكن جعلها قابلة للتكوين لاحقاً
     const guestCount = parseInt(formData.guestCount) || 0;
-    const itemsTotal = cateringItems.reduce((total, item) => total + (item.quantity * 8), 0);
-    return (guestCount * basePrice) + itemsTotal;
+    const itemsTotal = cateringItems.reduce((total, item) => total + (item.quantity * item.price), 0);
+    return (guestCount * basePricePerGuest) + itemsTotal;
   };
 
   const handleSubmit = async () => {
@@ -69,7 +76,12 @@ export function CateringPage({ onBack }: CateringPageProps) {
         eventDate: formData.eventDate,
         eventLocation: formData.eventLocation,
         guestCount: parseInt(formData.guestCount),
-        cateringItems: selectedItems,
+        cateringItems: selectedItems.map(item => ({
+          itemId: item.itemId,
+          name: item.name,
+          quantity: item.quantity,
+          price: item.price,
+        })),
         totalAmount: calculateEstimate(),
         notes: formData.notes,
       });
@@ -83,12 +95,21 @@ export function CateringPage({ onBack }: CateringPageProps) {
         guestCount: "",
         notes: "",
       });
+      // إعادة تعيين الكميات إلى 0
       setCateringItems(prev => prev.map(item => ({ ...item, quantity: 0 })));
       onBack();
     } catch (error) {
       toast.error("Failed to submit catering request");
     }
   };
+
+  if (!menuItems) {
+    return (
+      <div className="flex justify-center items-center min-h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-t-transparent" style={{ borderColor: '#facc15', borderTopColor: 'transparent' }}></div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto" style={{ color: '#facc15' }}>
@@ -124,7 +145,7 @@ export function CateringPage({ onBack }: CateringPageProps) {
                 value={formData.customerName}
                 onChange={(e) => handleInputChange('customerName', e.target.value)}
                 className="w-full px-4 py-3 border-2 rounded-lg outline-none transition-all"
-                style={{ backgroundColor: '#451a03 ', borderColor: '#facc15', color: '#facc15' }}
+                style={{ backgroundColor: '#451a03', borderColor: '#facc15', color: '#facc15' }}
                 placeholder="Your full name"
               />
             </div>
@@ -196,10 +217,10 @@ export function CateringPage({ onBack }: CateringPageProps) {
           
           <div className="space-y-4 mb-8">
             {cateringItems.map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: '#451a03' }}>
+              <div key={item.itemId} className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: '#1d0e01' }}>
                 <div className="flex-1">
-                  <span className="font-semibold" style={{ color: '#facc15' }}>{item.item}</span>
-                  <div className="text-sm" style={{ color: '#d97706' }}>8 EGP per serving</div>
+                  <span className="font-semibold" style={{ color: '#facc15' }}>{item.name}</span>
+                  <div className="text-sm" style={{ color: '#d97706' }}>{item.price} EGP per serving</div>
                 </div>
                 <div className="flex items-center space-x-3">
                   <button
@@ -223,7 +244,7 @@ export function CateringPage({ onBack }: CateringPageProps) {
           </div>
 
           {/* Price Estimate */}
-          <div className="p-6 rounded-lg mb-6" style={{ backgroundColor: '#451a03' }}>
+          <div className="p-6 rounded-lg mb-6" style={{ backgroundColor: '#1d0e01' }}>
             <h3 className="text-xl font-bold mb-4" style={{ color: '#facc15' }}>Price Estimate</h3>
             <div className="space-y-2" style={{ color: '#d97706' }}>
               <div className="flex justify-between">
@@ -232,7 +253,7 @@ export function CateringPage({ onBack }: CateringPageProps) {
               </div>
               <div className="flex justify-between">
                 <span>Additional Items</span>
-                <span style={{ color: '#facc15' }}>${(cateringItems.reduce((total, item) => total + (item.quantity * 8), 0)).toFixed(2)}</span>
+                <span style={{ color: '#facc15' }}>${(cateringItems.reduce((total, item) => total + (item.quantity * item.price), 0)).toFixed(2)}</span>
               </div>
               <div className="border-t pt-2 mt-2" style={{ borderColor: '#facc15' }}>
                 <div className="flex justify-between font-bold text-lg">

@@ -1,4 +1,4 @@
-import { Authenticated, Unauthenticated, useQuery } from "convex/react";
+import { Authenticated, Unauthenticated, useQuery, useConvexAuth } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { SignInForm } from "./SignInForm";
 import { SignOutButton } from "./SignOutButton";
@@ -9,8 +9,6 @@ import { AdminDashboard } from "./components/AdminDashboard";
 import { MenuPage } from "./components/MenuPage";
 import { CateringPage } from "./components/CateringPage";
 import { OrderHistory } from "./components/OrderHistory";
-
-// ✅ Correct import paths from src/assets (relative to this file)
 import Logo from "./assets/logorm2.webp";
 import Logo2 from "./assets/logorm3.webp";
 
@@ -19,8 +17,7 @@ export default function App() {
     <div
       className="min-h-screen"
       style={{
-        background:
-          "linear-gradient(to bottom right, #451a03, #1d0e01, #451a03)",
+        background: "linear-gradient(to bottom right, #451a03, #1d0e01, #451a03)",
       }}
     >
       <Content />
@@ -30,7 +27,10 @@ export default function App() {
 }
 
 function Content() {
+  // 1. Use Convex Auth hook to know when auth is ready
+  const { isLoading, isAuthenticated } = useConvexAuth();
   const loggedInUser = useQuery(api.auth.loggedInUser);
+
   const [currentPage, setCurrentPage] = useState<
     "home" | "menu" | "catering" | "orders" | "admin"
   >("home");
@@ -39,13 +39,15 @@ function Content() {
     return loggedInUser?.email === "Abdoush2008@gmail.com";
   }, [loggedInUser]);
 
+  // 2. Auto‑redirect admin to dashboard
   useEffect(() => {
-    if (loggedInUser && isAdmin && currentPage === "home") {
+    if (isAuthenticated && loggedInUser && isAdmin && currentPage === "home") {
       setCurrentPage("admin");
     }
-  }, [loggedInUser, isAdmin, currentPage]);
+  }, [isAuthenticated, loggedInUser, isAdmin, currentPage]);
 
-  if (loggedInUser === undefined) {
+  // 3. Show a spinner while auth state is loading
+  if (isLoading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
         <div
@@ -59,28 +61,31 @@ function Content() {
     );
   }
 
+  // 4. Build a key that changes whenever authentication or user changes.
+  //    This forces React to re‑mount the entire authenticated block,
+  //    ensuring all queries re‑run and the UI updates immediately.
+  const authKey = `${isAuthenticated ? "auth" : "noauth"}-${loggedInUser?._id ?? "none"}`;
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" key={authKey}>
+      {/* Header */}
       <header
         className="relative text-white shadow-2xl overflow-hidden"
         style={{
-          background:
-            "linear-gradient(to right, #451a03, #1d0e01, #451a03)",
+          background: "linear-gradient(to right, #451a03, #1d0e01, #451a03)",
         }}
       >
         <div
           className="absolute top-0 left-0 right-0 h-0.5"
           style={{
-            background:
-              "linear-gradient(to right, transparent, #facc15, transparent)",
+            background: "linear-gradient(to right, transparent, #facc15, transparent)",
           }}
         ></div>
 
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background:
-              "linear-gradient(to bottom, rgba(250,204,21,0.1), transparent)",
+            background: "linear-gradient(to bottom, rgba(250,204,21,0.1), transparent)",
           }}
         ></div>
 
@@ -91,8 +96,7 @@ function Content() {
                 <div
                   className="w-12 h-12 rounded-full flex items-center justify-center shadow-2xl"
                   style={{
-                    background:
-                      "linear-gradient(to bottom right, #facc15, #d97706)",
+                    background: "linear-gradient(to bottom right, #facc15, #d97706)",
                   }}
                 >
                   <img src={Logo} alt="Logo" />
@@ -120,13 +124,11 @@ function Content() {
                       style={
                         currentPage === "home"
                           ? {
-                              background:
-                                "linear-gradient(to right, #facc15, #d97706)",
+                              background: "linear-gradient(to right, #facc15, #d97706)",
                               color: "#451a03",
-                              boxShadow:
-                                "0 10px 15px -3px rgba(250,204,21,0.3)",
+                              boxShadow: "0 10px 15px -3px rgba(250,204,21,0.3)",
                             }
-                          : { color: "#facc15", backgroundColor: "rgba(69,26,3,0.5)" }
+                          : { color: "#fadd8c", backgroundColor: "rgba(69,26,3,0.5)" }
                       }
                     >
                       Home
@@ -139,13 +141,11 @@ function Content() {
                       style={
                         currentPage === "orders"
                           ? {
-                              background:
-                                "linear-gradient(to right, #facc15, #d97706)",
+                              background: "linear-gradient(to right, #facc15, #d97706)",
                               color: "#451a03",
-                              boxShadow:
-                                "0 10px 15px -3px rgba(250,204,21,0.3)",
+                              boxShadow: "0 10px 15px -3px rgba(250,204,21,0.3)",
                             }
-                          : { color: "#facc15", backgroundColor: "rgba(69,26,3,0.5)" }
+                          : { color: "#fadd8c", backgroundColor: "rgba(69,26,3,0.5)" }
                       }
                     >
                       Orders
@@ -161,8 +161,7 @@ function Content() {
         <div
           className="absolute bottom-0 left-0 right-0 h-0.5"
           style={{
-            background:
-              "linear-gradient(to right, transparent, #facc15, transparent)",
+            background: "linear-gradient(to right, transparent, #facc15, transparent)",
           }}
         ></div>
       </header>
@@ -202,8 +201,7 @@ function LoginPage() {
         <div
           className="relative p-8 text-center"
           style={{
-            background:
-              "linear-gradient(to right, #451a03, #1d0e01, #451a03)",
+            background: "linear-gradient(to right, #451a03, #1d0e01, #451a03)",
           }}
         >
           <div className="relative z-10">
@@ -213,8 +211,7 @@ function LoginPage() {
           <div
             className="absolute bottom-0 left-0 right-0 h-0.5"
             style={{
-              background:
-                "linear-gradient(to right, transparent, #facc15, transparent)",
+              background: "linear-gradient(to right, transparent, #facc15, transparent)",
             }}
           ></div>
         </div>
@@ -226,8 +223,7 @@ function LoginPage() {
         <div
           className="h-2"
           style={{
-            background:
-              "linear-gradient(to right, rgba(250,204,21,0.5), #d97706, rgba(250,204,21,0.5))",
+            background: "linear-gradient(to right, rgba(250,204,21,0.5), #d97706, rgba(250,204,21,0.5))",
           }}
         ></div>
       </div>

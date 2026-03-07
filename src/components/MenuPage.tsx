@@ -27,6 +27,8 @@ export function MenuPage({ onBack }: MenuPageProps) {
   const [quantity, setQuantity] = useState(1);
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
+  const [eventDate, setEventDate] = useState("");
+  const [eventLocation, setEventLocation] = useState("");
   const [showCheckout, setShowCheckout] = useState(false);
 
   if (!menuItems) {
@@ -72,8 +74,8 @@ export function MenuPage({ onBack }: MenuPageProps) {
   };
 
   const handleCheckout = async () => {
-    if (!customerName || !customerPhone) {
-      toast.error("Please fill in your contact details");
+    if (!customerName || !customerPhone || !eventDate || !eventLocation) {
+      toast.error("Please fill in all fields");
       return;
     }
 
@@ -95,12 +97,16 @@ export function MenuPage({ onBack }: MenuPageProps) {
           price: item.price,
         })),
         totalAmount: getTotalAmount(),
+        eventDate,       // new field
+        eventLocation,   // new field
       });
 
       toast.success("Order placed successfully!");
       setCart([]);
       setCustomerName("");
       setCustomerPhone("");
+      setEventDate("");
+      setEventLocation("");
       setShowCheckout(false);
       onBack();
     } catch (error) {
@@ -353,6 +359,22 @@ export function MenuPage({ onBack }: MenuPageProps) {
                   placeholder="Phone Number"
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
+                  className="w-full px-4 py-3 border-2 rounded-lg outline-none transition-all"
+                  style={{ backgroundColor: '#451a03', borderColor: '#facc15', color: '#facc15' }}
+                />
+                <input
+                  type="date"
+                  placeholder="Event Date"
+                  value={eventDate}
+                  onChange={(e) => setEventDate(e.target.value)}
+                  className="w-full px-4 py-3 border-2 rounded-lg outline-none transition-all"
+                  style={{ backgroundColor: '#451a03', borderColor: '#facc15', color: '#facc15' }}
+                />
+                <input
+                  type="text"
+                  placeholder="Event Location"
+                  value={eventLocation}
+                  onChange={(e) => setEventLocation(e.target.value)}
                   className="w-full px-4 py-3 border-2 rounded-lg outline-none transition-all"
                   style={{ backgroundColor: '#451a03', borderColor: '#facc15', color: '#facc15' }}
                 />
