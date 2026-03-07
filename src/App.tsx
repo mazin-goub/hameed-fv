@@ -27,8 +27,7 @@ export default function App() {
 }
 
 function Content() {
-  // 1. Use Convex Auth hook to know when auth is ready
-  const { isLoading, isAuthenticated } = useConvexAuth();
+  const { isLoading: authLoading, isAuthenticated } = useConvexAuth();
   const loggedInUser = useQuery(api.auth.loggedInUser);
 
   const [currentPage, setCurrentPage] = useState<
@@ -39,15 +38,17 @@ function Content() {
     return loggedInUser?.email === "Abdoush2008@gmail.com";
   }, [loggedInUser]);
 
-  // 2. Auto‑redirect admin to dashboard
+  // توجيه الأدمن تلقائياً إلى لوحة التحكم
   useEffect(() => {
-    if (isAuthenticated && loggedInUser && isAdmin && currentPage === "home") {
+    if (isAuthenticated && loggedInUser && isAdmin && currentPage !== "admin") {
       setCurrentPage("admin");
     }
   }, [isAuthenticated, loggedInUser, isAdmin, currentPage]);
 
-  // 3. Show a spinner while auth state is loading
-  if (isLoading) {
+  // عرض مؤشر التحميل أثناء:
+  // 1. تحميل حالة المصادقة
+  // 2. أو بعد المصادقة ولكن بيانات المستخدم لم تُحمل بعد
+  if (authLoading || (isAuthenticated && loggedInUser === undefined)) {
     return (
       <div className="min-h-screen flex justify-center items-center">
         <div
@@ -61,14 +62,9 @@ function Content() {
     );
   }
 
-  // 4. Build a key that changes whenever authentication or user changes.
-  //    This forces React to re‑mount the entire authenticated block,
-  //    ensuring all queries re‑run and the UI updates immediately.
-  const authKey = `${isAuthenticated ? "auth" : "noauth"}-${loggedInUser?._id ?? "none"}`;
-
   return (
-    <div className="min-h-screen" key={authKey}>
-      {/* Header */}
+    <div className="min-h-screen">
+      {/* الهيدر */}
       <header
         className="relative text-white shadow-2xl overflow-hidden"
         style={{
